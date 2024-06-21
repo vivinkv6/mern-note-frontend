@@ -6,9 +6,14 @@ import SignUp from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import CreateNote from "./components/CreateNote";
 import { useUpdateStore } from "./store/updateNoteStore";
+import Note from "./pages/Note";
+import useAuthStore from "./store/authStore";
 function App() {
-
-  const updateNote=useUpdateStore(state=>state.updateNote);
+  const updateNote = useUpdateStore((state) => state.updateNote);
+  const getToken = useAuthStore((state) => state.getToken);
+  const token = useAuthStore((state) => state.token);
+  getToken();
+  
 
   return (
     <>
@@ -16,16 +21,20 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="dashboard/create" element={<CreateNote />} />
+        <Route path="dashboard" element={token ? <Dashboard /> : <Login />} />
+        <Route
+          path="dashboard/create"
+          element={token ? <CreateNote /> : <Login />}
+        />
+        <Route path="dashboard/:id" element={token ? <Note /> : <Login />} />
         <Route
           path="dashboard/:id/update"
           element={
             <CreateNote
-             id={updateNote?.id}
-             title={updateNote?.title}
-             image={updateNote?.image}
-             content={updateNote?.content}
+              id={updateNote?.id}
+              title={updateNote?.title}
+              image={updateNote?.image}
+              content={updateNote?.content}
             />
           }
         />
