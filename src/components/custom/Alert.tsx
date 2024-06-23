@@ -10,10 +10,10 @@ const Alert = ({ msg, status, color }: AlertProp) => {
 
   return (
     <div
-      className={`flex items-center justify-center bg-${color}-700 text-white py-2 px-4 rounded-lg shadow-md`}
+      className={`flex items-center justify-center bg-red-500 mt-5 text-white py-2 px-4 rounded-lg shadow-md`}
     >
       <div
-        className={`border border-solid ${borderColor} flex items-center justify-center h-8 w-8 mr-3`}
+        className={` border rounded-full ${borderColor} flex items-center justify-center h-8 w-8 mr-3`}
       >
         <span className="text-lg font-bold">!</span>
       </div>

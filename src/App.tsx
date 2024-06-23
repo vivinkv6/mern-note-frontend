@@ -8,12 +8,17 @@ import CreateNote from "./components/CreateNote";
 import { useUpdateStore } from "./store/updateNoteStore";
 import Note from "./pages/Note";
 import useAuthStore from "./store/authStore";
+import { useEffect } from "react";
 function App() {
   const updateNote = useUpdateStore((state) => state.updateNote);
   const getToken = useAuthStore((state) => state.getToken);
   const token = useAuthStore((state) => state.token);
-  getToken();
-  
+
+  useEffect(() => {
+    getToken();
+    console.log(token);
+    
+  }, [token]);
 
   return (
     <>

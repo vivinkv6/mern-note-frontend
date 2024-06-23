@@ -5,17 +5,31 @@ import Logo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/authStore";
 import Cookies from "js-cookie";
+import { useFetch } from "../hooks/useFetch";
 
-const notes = new Array(9).fill({
-  title: "Title",
-  content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  image: "https://via.placeholder.com/300x150",
-});
+// const notes = new Array(9).fill({
+//   title: "Title",
+//   content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+//   image: "https://via.placeholder.com/300x150",
+// });
+
+type NoteType = {
+  _id: string;
+  user: string;
+  title: string;
+  description: string;
+  image: string;
+};
 
 const Dashboard: React.FC = () => {
   const clearToken = useAuthStore((state) => state.clearToken);
 
   const navigation = useNavigate();
+
+  const { data: notes, status } = useFetch("/api/notes", "notes");
+  console.log(status);
+
+  console.log(notes);
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800">
@@ -25,7 +39,7 @@ const Dashboard: React.FC = () => {
           <span>hello12@gmail.com</span>
           <button
             onClick={() => {
-              Cookies.remove('token')
+              Cookies.remove("token");
               clearToken();
               navigation("/login", {
                 replace: true,
@@ -38,11 +52,11 @@ const Dashboard: React.FC = () => {
         </div>
       </header>
       <main className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {notes.map((note, index) => (
+        {notes?.map((note:NoteType) => (
           <NoteCard
-            key={index}
+            _id={note._id}
             title={note.title}
-            content={note.content}
+            description={note.description}
             image={note.image}
           />
         ))}
