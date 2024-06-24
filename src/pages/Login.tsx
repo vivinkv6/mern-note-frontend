@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Logo from "../assets/logo.png";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -19,10 +19,6 @@ const Login: React.FC = () => {
     }
   }, [token]);
 
-  const [errors, setErrors] = useState<{ email: boolean; password: boolean }>({
-    email: false,
-    password: false,
-  });
 
   const mutation = useForms("/api/users/login", "login");
   const onSubmit = (data: FieldValues) => {

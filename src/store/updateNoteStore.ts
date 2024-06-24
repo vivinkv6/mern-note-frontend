@@ -4,7 +4,7 @@ export type NoteProp ={
       title: string;
       content: string;
       image: string;
-    }|{};
+    };
 
 type UpdateNoteStore = {
   updateNote: NoteProp;
@@ -13,10 +13,10 @@ type UpdateNoteStore = {
 
 export const useUpdateStore = create<UpdateNoteStore>((set) => ({
   updateNote: {
-    id: "1",
-    title: "string",
-    content: "Hello World",
-    image: "hai",
+    id: "",
+    title: "",
+    image: "",
+    content: "",
   },
   addNote: (note: NoteProp) => {
     set(() => ({

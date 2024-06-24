@@ -12,13 +12,15 @@ import { useEffect } from "react";
 function App() {
   const updateNote = useUpdateStore((state) => state.updateNote);
   const getToken = useAuthStore((state) => state.getToken);
+  const getUser=useAuthStore(state=>state.getUser)
   const token = useAuthStore((state) => state.token);
+  const user=useAuthStore(state=>state.user)
 
   useEffect(() => {
     getToken();
-    console.log(token);
+    getUser()
     
-  }, [token]);
+  }, [token,user,updateNote]);
 
   return (
     <>

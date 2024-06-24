@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { instance } from "../base/interceptor";
-
 export const useFetch = (url: string, name: string) => {
   return useQuery({
     queryKey: [name],

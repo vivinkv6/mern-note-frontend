@@ -3,13 +3,16 @@ import Cookies from "js-cookie";
 
 type Auth = {
   token: string | null;
+  user: string;
   getToken: () => void;
   setToken: (token: string) => void;
   clearToken: () => void;
+  getUser: () => void;
 };
 
 export const useAuthStore = create<Auth>((set) => ({
   token: "",
+  user: "",
   getToken: () => {
     const cookieValue = Cookies?.get("token");
     if (cookieValue) {
@@ -28,6 +31,14 @@ export const useAuthStore = create<Auth>((set) => ({
   clearToken: () => {
     set({ token: null });
     Cookies.remove("token");
+  },
+  getUser: () => {
+    const cookieValue = Cookies?.get("user");
+    if (cookieValue) {
+      set(() => ({
+        user: cookieValue,
+      }));
+    }
   },
 }));
 
